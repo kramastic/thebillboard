@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+    <title>{% block title %} {% endblock %}Доска объявлений</title>
+    <link rel="stylesheet" type="text/css"  href="{% static 'bboard/css/style.css' %}">
+</head>
+<body>
+
+
+{% block main_navigation %}
+    <h1><a href="{% url 'index' %}">Объявления</a></h1>
+    <nav>
+        {% if request.user.is_authenticated %}
+        <p><a href="{% url 'personal_account' %}">Личный кабинет пользователя {{ user.username }}</a></p>
+        <p><a href="{% url 'logout' %}">Log out</a></p>
+        {% else %}
+        <p><a href="{% url 'register' %}">Sign up</a> <a href="{% url 'login' %}"> Sign in</a></p>
+        {% endif %}
+        {% for item_type in item_types %}
+        <a href="{% url 'by_type'  item_type.name %}">{{ item_type.name_adv }}</a>
+        {% endfor %}</p>
+        <p>{% for action in actions %}
+        <a href="{% url 'by_action' action.name %}">{{ action.name_catalog }}</a>
+        {% endfor %}</p>
+        {% if request.user.is_authenticated %}
+        <p><a href="{% url 'add_bb' %}">Разместить объявление</a></p>
+        {% endif %}
+    </nav>
+{% endblock %}
+{% block navigation %}
+{% endblock %}
+    <section>
+        {% block content %}
+        {% endblock %}
+    </section>
+</body>
+</html>

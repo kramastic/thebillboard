@@ -1,0 +1,15 @@
+{% extends 'layout/basic.html' %}
+
+{%block title %}
+Личный кабинет
+{% endblock %}
+
+{% block content %}
+    {% for bb in bbs %}
+    <div>
+        <p>{{ bb.specification }}</p>
+        <p> {{ bb.time_create|date:'d.m.Y H:i' }}</p>
+    </div>
+    {% endfor %}
+
+{% endblock %}

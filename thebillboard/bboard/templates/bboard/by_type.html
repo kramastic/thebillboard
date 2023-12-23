@@ -1,0 +1,22 @@
+{% extends 'layout/basic.html' %}
+
+{% block navigation %}
+</head>
+<body>
+    <div>
+        <h2>Категория: {{ current_item_type.name_adv }}</h2>
+        <p>{% for action in actions %}
+        <a href="{% url 'by_cat_act' current_item_type.name action.name %}">{{ action.name_catalog }}</a>
+        {% endfor %}</p>
+    </div>
+{% endblock %}
+{% block content %}
+    {% for bb in bbs %}
+    <div>
+        <p><a href="{% url 'show_adv' current_item_type.name bb.id %}">{{ bb.specification }}</a></p>
+        <p> {{ bb.time_create|date:'d.m.Y H:i' }}</p>
+    </div>
+    {% endfor %}
+{% endblock %}
+</body>
+</html>
